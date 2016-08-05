@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title>FB Direct Ads Testing</title>
+	<meta name="description" content="">
+  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+</head>
+<style>
+     #ad_root {
+        display: none;
+        font-size: 14px;
+        height: 250px;
+        line-height: 16px;
+        position: relative;
+        width: 300px;
+      }
+      .thirdPartyMediaClass {
+        height: 157px;
+        width: 300px;
+      }
+      .thirdPartyTitleClass {
+        font-weight: 600;
+        font-size: 16px;
+        margin: 8px 0 4px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .thirdPartyBodyClass {
+        display: -webkit-box;
+        height: 32px;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+      .thirdPartyCallToActionClass {
+        color: #326891;
+        font-family: sans-serif;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+</style>
+
+<body>
+	<!-- HEADER -->
+	<div id="header_wrap" class="outer">
+		<header class="inner">
+		<h1 id="project_title">FB Direct Ads</h1>
+		</header>
+	</div>
+	<div id="change_endpoint">
+		<p>End Point: <b id="endPoint"></b></p>
+		<p id="endPointURL"></p>
+		<button type="button" onclick="toggleEndPoint()">Toggle PROD/INTERN and reload page</button>
+		<script src=toggle.js></script>
+	</div>
+	<div id="site">			
+		<div id="main_content_wrap" class="outer">
+		<section id="main_content">
+			<h3>Error message:</h3>
+			<div id="error_message"></div>
+			<h3>Medium Rectangle</h3>
+			<fb:ad placementid="191347624543764_205872599757933" format="300x250" testmode="false"></fb:ad>
+			<h3>Banner Ad</h3>
+			<fb:ad placementid="191347624543764_205872916424568" format="320x50" testmode="false"></fb:ad>
+			<h3>Native Ad</h3>
+			<fb:ad placementid="191347624543764_205872839757909"format="native"nativeadid="ad_root"></fb:ad>
+			<div id="ad_root">
+				<a class="fbAdLink">
+					<div class="fbAdMedia thirdPartyMediaClass"></div>
+					<div class="fbAdTitle thirdPartyTitleClass"></div>
+					<div class="fbAdBody thirdPartyBodyClass"></div>
+					<div class="fbAdCallToAction thirdPartyCallToActionClass"></div>
+				</a>
+			</div>
+			<h4 class="info">Suggestions</h4>
+			<ul>
+				<li>Run on mobile chrome, safari, firefox, browser</li>
+				<li>Run in facebook browser</li>
+				<li>Tap on things</li>
+				<li>Try different ad formats</li>
+			</ul>
+		
+			<h4 class="help">Need some help?</h4>
+			<ul>
+				<li>Talk to Dominic!</li>
+			</ul>
+		</section>
+		</div> <!-- / #main_content_wrap -->
+	
+		<!-- FOOTER  -->
+		<div id="footer_wrap" class="outer">
+			<footer class="inner">
+				<p class="copyright">Andience Network Test Pages maintained by <a href="https://github.com/lastdman">lastdman</a></p>
+				<p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+			</footer>
+		</div>	
+	</div> <!-- / #site -->
+	
+	<script>
+		window.fbAsyncInit = function() {
+			FB.Event.subscribe(
+			'ad.loaded',
+			function(placementId) {
+				console.log('Audience Network ad loaded');
+				document.getElementById('ad_root').style.display = 'block';
+				}
+			);
+			FB.Event.subscribe(
+			'ad.error',
+			function(errorCode, errorMessage, placementId) {
+				console.log('Audience Network error (' + errorCode + ') ' + errorMessage);
+				document.getElementById('error_message').style.color = 'red';
+				document.getElementById('error_message').innerHTML += errorCode + ": " + errorMessage + "</br>";
+				}
+			);
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = sessionStorage.endPointURL;
+			//js.src = "//connect.facebook.net/en_US/sdk/xfbml.ad.js#xfbml=1&version=v2.5&appId=191347624543764";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+</body>
+</html>
